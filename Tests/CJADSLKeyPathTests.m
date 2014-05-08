@@ -34,6 +34,10 @@
     
     id value = [object valueForDSLKeyPath:@"test"];
     XCTAssertEqualObjects(value, @"foo", @"value isnt the same");
+    
+    value = [object valueForDSLKeyPath:@"*"];
+    XCTAssertEqualObjects(value, object, @"objects arent the same");
+
 }
 
 - (void)testNestedObject {

@@ -27,6 +27,10 @@
     [pathComponents removeObjectIdenticalTo: firstPath];
     NSString *restOfthePath = [pathComponents componentsJoinedByString:@"."];
     
+    if ([cleanedOutFirstPath isEqualToString:@"*"]) {
+        return self;
+    }
+    
     id nestedObject = [self valueForKey: cleanedOutFirstPath];
     if (![self hasKeyPathACollectionPatterns:firstPath]) {
         return [nestedObject valueForDSLKeyPath: restOfthePath];
@@ -56,7 +60,7 @@
 #pragma mark - Helper Methods
 - (BOOL)hasKeyPathACollectionPatterns:(NSString *)keyPath {
     
-    BOOL hasAStarInIt = !(NSNotFound == [keyPath rangeOfString:@"[*]"].location);
+    BOOL hasAStarInIt = !(NSNotFound == [keyPath rangeOfString:@"*"].location);
     
     return hasAStarInIt;
 }
