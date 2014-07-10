@@ -79,22 +79,24 @@
 
 - (void)testCollectionSelector {
     
+    NSArray *nestedArray = @[
+                             @{ @"value1" : @"0" , @"value2" : @"foo"},
+                             @{ @"value1" : @"1" , @"value2" : @"foo"},
+                             @{ @"value1" : @"2" , @"value2" : @"foo"},
+                             @{ @"value1" : @"3" , @"value2" : @"foo"},
+                             ];
+    
     NSDictionary *object = @{
                              @"test" : @"foo",
                              @"nested" : @{
                                      @"name" : @"bar",
-                                     @"items" : @[
-                                             @{ @"value1" : @"0" , @"value2" : @"foo"},
-                                             @{ @"value1" : @"1" , @"value2" : @"foo"},
-                                             @{ @"value1" : @"2" , @"value2" : @"foo"},
-                                             @{ @"value1" : @"3" , @"value2" : @"foo"},
-                                             ]
+                                     @"items" : nestedArray
                                      }
                              };
     
     id value = [object valueForDSLKeyPath:@"nested.items[*].value1"];
     XCTAssertNotNil(value, @"value is nil");
-    
+
     XCTAssertTrue([value isKindOfClass:[NSArray class]], @"value istn a NSArray");
     
     NSArray *items = (NSArray *)value;
@@ -111,6 +113,11 @@
         
         
     }
+    
+    id value2 = [object valueForDSLKeyPath:@"nested.items[1].value1"];
+    XCTAssertNotNil(value2, @"value2 is nil");
+    XCTAssertEqualObjects(value2, nestedArray[1][@"value1"], @"value2 isnt the same");
+
 }
 
 - (void)testAdvancedCollectionSelector1 {
@@ -223,6 +230,12 @@
         
         
     }
+    
+    value = [object valueForDSLKeyPath:@"root[0].nested.items[1].value1"];
+    
+    XCTAssertNotNil(value, @"value is nil");
+    XCTAssertEqualObjects(value, @"1", @"value isnt the same");
+
 }
 
 @end

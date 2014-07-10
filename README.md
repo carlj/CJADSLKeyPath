@@ -25,6 +25,10 @@ NSDictionary *object = @{
 NSArray *values = [object valueForDSLKeyPath:@"nested.items[*].value1"];
 NSLog(@"%@", values);
 // prints out: 0, 1, 2, 3
+
+NSString *value = [object valueForDSLKeyPath:@"nested.items[0].value1"];
+NSLog(@"%@", value);
+// prints out: 0
 ```
 
 ##License

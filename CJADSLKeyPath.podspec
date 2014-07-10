@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
  s.name         = "CJADSLKeyPath"
- s.version      = "0.0.1"
+ s.version      = "0.0.2"
  s.platform     = :ios, "7.0"
  s.summary      = ""
  s.homepage     = "https://github.com/carlj/CJADSLKeyPath"

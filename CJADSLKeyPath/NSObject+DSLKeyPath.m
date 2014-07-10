@@ -40,8 +40,23 @@
         return nestedObject;
     }
     
-    NSMutableArray *result = [NSMutableArray array];
     
+    NSString *collectionPattern = [self collectionPatternsPathForKey: firstPath ];
+    if (![collectionPattern isEqualToString:@"*"]) {
+        
+        NSInteger index = [collectionPattern integerValue];
+        
+        NSArray *arrayObject = (NSArray *)nestedObject;
+        if (index >= 0 && index < arrayObject.count) {
+            
+            id nestedItem = arrayObject[index];
+            return [nestedItem valueForDSLKeyPath: restOfthePath];
+        }
+
+    }
+    
+    NSMutableArray *result = [NSMutableArray array];
+
     for (id nestedItem in nestedObject) {
         
         id nestedResult = [nestedItem valueForDSLKeyPath: restOfthePath];
@@ -60,9 +75,27 @@
 #pragma mark - Helper Methods
 - (BOOL)hasKeyPathACollectionPatterns:(NSString *)keyPath {
     
-    BOOL hasAStarInIt = !(NSNotFound == [keyPath rangeOfString:@"*"].location);
+    BOOL hasCollectionPattern = !(NSNotFound == [keyPath rangeOfString:@"["].location);
+    BOOL hasStar = !(NSNotFound == [keyPath rangeOfString:@"*"].location);
+
+    return hasCollectionPattern || hasStar;
+}
+
+- (NSString *)collectionPatternsPathForKey:(NSString *)key {
+
     
-    return hasAStarInIt;
+    NSRange rangeStart = [key rangeOfString:@"["];
+    NSRange rangeEnd = [key rangeOfString:@"]"];
+    
+
+    if (NSNotFound == rangeStart.location || NSNotFound == rangeEnd.location) {
+        return key;
+    }
+
+
+    NSRange subStringRange = NSMakeRange(rangeStart.location + 1, rangeEnd.location - rangeStart.location - 1);
+    
+    return [key substringWithRange:subStringRange];
 }
 
 - (NSString *)cleanedCollectionPatternsPathForKey:(NSString *)key {
