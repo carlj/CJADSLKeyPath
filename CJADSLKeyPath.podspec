@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
  s.name         = "CJADSLKeyPath"
  s.version      = "0.0.2"
  s.platform     = :ios, "7.0"
- s.summary      = ""
+ s.summary      = "Category for KeyPaths with special syntax"
  s.homepage     = "https://github.com/carlj/CJADSLKeyPath"
  s.author       = { "Carl Jahn" => "jahncarl@gmail.com" }
  s.source       = { :git  => "https://github.com/carlj/CJADSLKeyPath.git", :tag => s.version.to_s }
