@@ -2,7 +2,7 @@
 CJADSLKeyPath is a easy to use Category for accessing values with a special keyPath 
 
 ##Installation
-Just drag&drop the ```NSObject+DSLKeyPath.h.h``` file in your XCode Project. 
+Just drag&drop the ```NSObject+DSLKeyPath.h.h``` file in your Xcode Project. 
 For global usage you can import the ```NSObject+DSLKeyPath.h.h``` in your projects ```-Prefix.pch``` file.
 
 ##Usage
